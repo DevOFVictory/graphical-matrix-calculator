@@ -1,0 +1,96 @@
+p {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+    border: 1px solid black;
+    table-layout: fixed;
+}
+  
+th, td {
+border: 1px solid black;
+width: 100px;
+overflow: hidden;
+border-left: none;
+border-right: none;
+border-bottom: none;
+}
+
+th {
+    border: none;
+    background-color: #7eda8150;
+}
+
+.red {
+    color: #f06464;
+}
+
+.orange {
+    color: #f0a064;
+}
+
+#undo-btn {
+    color: gray;
+}
+
+#redo-btn {
+    color: gray;
+}
+
+.first {
+    border-left: 1px solid black;
+}
+
+.last {
+    border-right: 1px solid black;
+}
+
+.multiplier {
+    border: 1px solid black;
+}
+
+#extras {
+    margin-top: 20px;
+    display: flex;
+}
+
+#manual {
+    border: 0;
+    table-layout: fixed;
+}
+
+#manual > tbody > tr > td {
+    border: none;
+    height: 50%;
+}
+
+
+
+input {
+    width: 40px;
+    text-align: center;
+    border: none;
+    border-bottom: black 1px solid;
+    background-color: #ffffff00;
+}
+
+#sign-changer > .positive {
+    color: green;
+}
+
+#sign-changer > .negative {
+    color: red;
+}
+
+i {
+    cursor: pointer;
+    transform: scale(1.5);
+    padding: 5px;
+}
+
+#manual > tbody > tr > td > i{
+    padding: 0px;
+    color: aqua;
+    transform: translateX(-50%) scale(1.5);
+    
+}

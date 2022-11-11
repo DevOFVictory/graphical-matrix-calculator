@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Table with 4 rows and 7 coulumns-->
+    <table border="1" cellspacing="0">
+        <tr row>
+            <th align="center" class="orange">
+
+                <i class="fa-solid fa-circle-question"></i>
+                
+            </th>
+            <th align="center">
+
+                <p>a</p>
+                
+            </th>
+            <th align="center">
+
+                <p>b</p>
+
+            </th>
+            <th align="center">
+
+                <p>c</p>
+         
+            </th>
+            <th align="center">
+
+                <p>=</p>
+
+                
+            </th>
+            <th align="center">
+
+                <div>
+                    <i class="fa-solid fa-arrow-rotate-left" id="undo-btn"></i>
+                    <i class="fa-regular fa-clock"></i>
+                    <i class="fa-solid fa-arrow-rotate-right" id="redo-btn"></i>
+
+                </div>
+                
+            </th>
+            <th align="center" class="orange">
+
+                <i class="fa-solid fa-circle-info"></i>
+
+            </th>
+        </tr>
+        <tr>
+            <th align="center">
+
+                <p>1</p>
+                
+            </th>
+            <td align="center" class="first">
+
+                <p>5</p>
+                
+            </td>
+            <td align="center">
+
+                <p>5</p>
+                
+            </td>
+            <td align="center">
+
+                <p>5</p>
+                
+            </td>
+            <td align="center">
+
+                <p>8</p>
+                
+            </td>
+            <td align="center" class="last">
+
+                <i class="fa-solid fa-bars"></i>
+                
+            </td>
+            <th align="center" class="red">
+
+                <i class="fa-solid fa-circle-minus"></i>                                
+            </th>
+        </tr>
+        <tr>
+            <th align="center">
+
+                <p>2</p>
+                
+            </th>
+            <td align="center" class="first">
+
+                <p>5</p>
+                
+            </td>
+            <td align="center">
+
+                <p>5</p>
+                
+            </td>
+            <td align="center">
+
+                <p>5</p>
+                
+            </td>
+            <td align="center">
+
+                <p>8</p>
+                
+            </td>
+            <td align="center" class="last">
+
+                <i class="fa-solid fa-bars"></i>
+                
+            </td>
+            <th align="center" class="red">
+
+                <i class="fa-solid fa-circle-minus"></i>
+            </th>
+        </tr>
+        <tr>
+            <th align="center">
+
+                <p>3</p>
+                
+            </th>
+            <td align="center" class="first">
+
+                <p>5</p>
+                
+            </td>
+            <td align="center">
+
+                <p>5</p>
+                
+            </td>
+            <td align="center">
+
+                <p>5</p>
+                
+            </td>
+            <td align="center">
+
+                <p>8</p>
+                
+            </td>
+            <td align="center" class="last">
+
+                <i class="fa-solid fa-bars"></i>
+                
+            </td>
+            <th align="center" class="red">
+
+                <i class="fa-solid fa-circle-minus"></i>
+            </th>
+        </tr>
+    </table>
+
+    <div id="extras"> 
+
+
+        <table cellspacing="0" id="multipliers">
+            <tr>
+                <td align="center" class="multiplier">
+                    <p>x 2</p>
+                </td>
+                <td align="center" class="multiplier">
+                    <p>x 3</p>
+                </td>
+                <td align="center" class="multiplier">
+                    <p>x 4</p>
+                </td>
+                <td align="center" class="multiplier">
+                    <p>x 5</p>
+                </td>
+                <td align="center" class="multiplier">
+                    <p>x 6</p>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" class="multiplier">
+                    <p>x 1/2</p>
+                </td>
+                <td align="center" class="multiplier">
+                    <p>x 1/3</p>
+                </td>
+                <td align="center" class="multiplier">
+                    <p>x 1/4</p>
+                </td>
+                <td align="center" class="multiplier">
+                    <p>x 1/5</p>
+                </td>
+                <td align="center" class="multiplier">
+                    <p>x 1/6</p>
+            </tr>
+        </table>
+
+        <table cellspacing="1" id="manual" border="0">
+            <tr>
+                <td align="center">
+                    <p>x = x •</p>
+                </td>
+                <td id=sign-changer align="center">
+                    <i class="fa-solid fa-circle-plus positive"></i>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center">
+                    <input type="number" value="1">
+                </td>
+
+                <td align="center">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+</body>
+</html>
