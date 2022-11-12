@@ -1,4 +1,6 @@
-var matrix = [[2,2,2,8],[2,2,2,8],[2,2,2,8]];
+var matrix = [[ 1, 2, 3, 4],
+              [ 5, 6, 7, 8],
+              [ 9,10,11,12]];
 
 renderMainTable();
 
@@ -29,11 +31,16 @@ function renderMainTable() {
 
 
             if (row >= 1 && col >= 1 && col <= matrix[0].length) {
-                colEle.innerHTML = '<p>' +  matrix[row-1][col-1] + '</p>';
+                if (Number.isInteger(matrix[row-1][col-1])) {
+                    colEle.innerHTML = '<p>' + matrix[row-1][col-1] + '</p>';
+                }else {
+                    colEle.innerHTML = '<p>' + matrix[row-1][col-1].toFixed(2) + '</p>';
+                }
+                colEle.classList.add('matrix-part');
             }
 
             if (row == 0 && col == 0) {
-                colEle.innerHTML = '<i class="fa-solid fa-circle-question orange"></i>';
+                colEle.innerHTML = '<i id="help-btn" class="fa-solid fa-circle-question orange"></i>';
             }
 
             if (col == 0 && row >= 1) {
@@ -51,13 +58,13 @@ function renderMainTable() {
             if (row == 0 && col == matrix[0].length + 1) {
                 colEle.innerHTML = `<div>
                 <i class="fa-solid fa-arrow-rotate-left" id="undo-btn"></i>
-                <i class="fa-regular fa-clock"></i>
+                <i class="fa-regular fa-clock" id="history-btn"></i>
                 <i class="fa-solid fa-arrow-rotate-right" id="redo-btn"></i>
             </div>`;
             }
 
             if (row == 0 && col == matrix[0].length + 2) {
-                colEle.innerHTML = '<i class="fa-solid fa-circle-info orange"></i>';
+                colEle.innerHTML = '<i id="info-btn" class="fa-solid fa-circle-info orange"></i>';
             }
 
             if (col == matrix[0].length + 1 && row >= 1) {
@@ -68,13 +75,40 @@ function renderMainTable() {
                 colEle.innerHTML = '<i class="fa-solid fa-circle-minus red"></i>';
             }
 
-            
+            if (row >= 1 && col == matrix[0].length + 1) {
+                colEle.classList.add('last');
+            }
 
+            if (row >= 1 && col == 1) {
+                colEle.classList.add('first');
+            }
+
+            
 
             colEle.align = 'center';
             rowEle.appendChild(colEle);
+
             
         }
         mainTable.appendChild(rowEle);
     }
+}
+
+function updateMainTable() {
+    const tds = document.querySelectorAll('.matrix-part');
+    tds.forEach((td, index) => {
+
+        const x = index%matrix[0].length;
+        const y = Math.floor(index/matrix[0].length);
+        
+        if (Number.isInteger(matrix[y][x])) {
+            td.children[0].innerHTML = matrix[y][x];
+        }else {
+            if ((''+matrix[y][x]).split('.')[1].length > 2) {
+                td.children[0].innerHTML = '~' + matrix[y][x].toFixed(2);
+            }else {
+                td.children[0].innerHTML = matrix[y][x].toFixed(2);
+            }
+        }
+    });
 }
