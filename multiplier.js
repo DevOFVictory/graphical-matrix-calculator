@@ -17,19 +17,19 @@ customMultiplierInput.addEventListener('input', () => {
 });
 
 function drag(e) {
-    const multiplier = document.querySelector('.dragging');
-    
     const row = getHoveredRow(e);
+    
 
     if (row) {
-
         const hoveredRowElements = getMatrixElements(row);
+
         
         document.querySelectorAll('.matrix-part').forEach(td => {
             if (hoveredRowElements.includes(td)) {
                 td.classList.add('selected');
             } else {
                 td.classList.remove('selected');
+                
             }
         });
 
@@ -62,6 +62,7 @@ function dragend(e) {
             matrix[y][x] *=  multiplierValue;
         }
 
+        addToHistory(matrix);
         updateMainTable();
 
         getMatrixElements(row).forEach((td, index) => {

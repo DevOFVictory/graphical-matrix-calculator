@@ -1,6 +1,7 @@
-var matrix = [[ 1, 2, 3, 4],
-              [ 5, 6, 7, 8],
-              [ 9,10,11,12]];
+var matrix = [[ 1, 2, 3, 4,5],
+              [ 5, 6, 7, 8, 1],
+              [ 9,10,11,12, 1],
+              [13,14,15,16, 1]];
 
 renderMainTable();
 
@@ -31,6 +32,21 @@ function renderMainTable() {
 
 
             if (row >= 1 && col >= 1 && col <= matrix[0].length) {
+
+                // if (row-1 + (matrix.length-row) == matrix.length -1 && col-1 < matrix[0].length - 2 - (matrix.length-row)) {
+                //     colEle.style.backgroundColor = 'rgba(245, 245, 39, 0.43)';
+                // }
+
+                console.log(row, col);
+                if (row == col) {
+                    colEle.style.backgroundColor = 'rgba(232, 142, 17, 0.3)';
+                }else if (row != col && col < matrix[0].length) {
+                    colEle.style.backgroundColor = 'rgba(232, 227, 17, 0.3)';
+                }else if (col == matrix[0].length) {
+                    colEle.style.backgroundColor = 'rgba(17, 232, 218, 0.3)';
+                }
+
+
                 if (Number.isInteger(matrix[row-1][col-1])) {
                     colEle.innerHTML = '<p>' + matrix[row-1][col-1] + '</p>';
                 }else {
@@ -40,11 +56,11 @@ function renderMainTable() {
             }
 
             if (row == 0 && col == 0) {
-                colEle.innerHTML = '<i id="help-btn" class="fa-solid fa-circle-question orange"></i>';
+                colEle.innerHTML = '<i id="help-btn" class="fa-solid fa-circle-question orange clickable"></i>';
             }
 
             if (col == 0 && row >= 1) {
-                colEle.innerHTML = '<p>' + (row) + '</p>';
+                colEle.innerHTML = '<p class="roman">' + (integerToRomanNumber(row)) + '</p>';
             }
 
             if (row == 0 && col >= 1 && col < matrix[0].length) {
@@ -57,18 +73,18 @@ function renderMainTable() {
 
             if (row == 0 && col == matrix[0].length + 1) {
                 colEle.innerHTML = `<div>
-                <i class="fa-solid fa-arrow-rotate-left" id="undo-btn"></i>
-                <i class="fa-regular fa-clock" id="history-btn"></i>
-                <i class="fa-solid fa-arrow-rotate-right" id="redo-btn"></i>
+                <i class="fa-solid fa-arrow-rotate-left disabled clickable smaller" id="undo-btn"></i>
+                <i class="fa-regular fa-clock clickable" id="history-btn"></i>
+                <i class="fa-solid fa-arrow-rotate-right disabled clickable smaller" id="redo-btn"></i>
             </div>`;
             }
 
             if (row == 0 && col == matrix[0].length + 2) {
-                colEle.innerHTML = '<i id="info-btn" class="fa-solid fa-circle-info orange"></i>';
+                colEle.innerHTML = '<i id="info-btn" class="fa-solid fa-circle-info orange clickable"></i>';
             }
 
             if (col == matrix[0].length + 1 && row >= 1) {
-                colEle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                colEle.innerHTML = '<i class="fa-solid fa-bars clickable"></i>';
             }
 
             if (col == matrix[0].length + 2 && row >= 1) {
@@ -111,4 +127,35 @@ function updateMainTable() {
             }
         }
     });
+}
+
+function integerToRomanNumber(number) {
+    var romanNumber = '';
+    var romanNumbers = {
+        1: 'I',
+        4: 'IV',
+        5: 'V',
+        9: 'IX',
+        10: 'X',
+        40: 'XL',
+        50: 'L',
+        90: 'XC',
+        100: 'C',
+        400: 'CD',
+        500: 'D',
+        900: 'CM',
+        1000: 'M'
+    };
+    var romanNumbersKeys = Object.keys(romanNumbers).reverse();
+    var numberCopy = number;
+    while (numberCopy > 0) {
+        for (let i = 0; i < romanNumbersKeys.length; i++) {
+            if (numberCopy >= romanNumbersKeys[i]) {
+                romanNumber += romanNumbers[romanNumbersKeys[i]];
+                numberCopy -= romanNumbersKeys[i];
+                break;
+            }
+        }
+    }
+    return romanNumber;
 }
