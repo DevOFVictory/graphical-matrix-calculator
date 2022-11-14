@@ -1,7 +1,6 @@
-var matrix = [[ 1, 2, 3, 4,5],
-              [ 5, 6, 7, 8, 1],
-              [ 9,10,11,12, 1],
-              [13,14,15,16, 1]];
+var matrix = [[ 1, 2, 3, 4],
+              [ 5, 6, 7, 8],
+              [ 9,10,11,12]];
 
 renderMainTable();
 
@@ -37,11 +36,10 @@ function renderMainTable() {
                 //     colEle.style.backgroundColor = 'rgba(245, 245, 39, 0.43)';
                 // }
 
-                console.log(row, col);
                 if (row == col) {
-                    colEle.style.backgroundColor = 'rgba(232, 142, 17, 0.3)';
+                    colEle.classList.add('must-be-one');
                 }else if (row != col && col < matrix[0].length) {
-                    colEle.style.backgroundColor = 'rgba(232, 227, 17, 0.3)';
+                    colEle.classList.add('must-be-zero');
                 }else if (col == matrix[0].length) {
                     colEle.style.backgroundColor = 'rgba(17, 232, 218, 0.3)';
                 }
@@ -84,11 +82,11 @@ function renderMainTable() {
             }
 
             if (col == matrix[0].length + 1 && row >= 1) {
-                colEle.innerHTML = '<i class="fa-solid fa-bars clickable"></i>';
+                colEle.innerHTML = '<i class="fa-solid fa-bars clickable" draggable="true"></i>';
             }
 
             if (col == matrix[0].length + 2 && row >= 1) {
-                colEle.innerHTML = '<i class="fa-solid fa-circle-minus red"></i>';
+                colEle.innerHTML = '<i class="fa-solid fa-circle-plus operator-sign positive"></i><i class="fa-solid fa-circle-minus operator-sign negative"></i>';
             }
 
             if (row >= 1 && col == matrix[0].length + 1) {
@@ -108,6 +106,7 @@ function renderMainTable() {
         }
         mainTable.appendChild(rowEle);
     }
+    print('Table successfully rendered');
 }
 
 function updateMainTable() {
@@ -119,6 +118,9 @@ function updateMainTable() {
         
         if (Number.isInteger(matrix[y][x])) {
             td.children[0].innerHTML = matrix[y][x];
+            if ((matrix[y][x] == 0 && td.classList.contains('must-be-zero')) || matrix[y][x] == 1 && td.classList.contains('must-be-one') ) {
+                // TODO: confetti
+            }
         }else {
             if ((''+matrix[y][x]).split('.')[1].length > 2) {
                 td.children[0].innerHTML = '~' + matrix[y][x].toFixed(2);
@@ -158,4 +160,8 @@ function integerToRomanNumber(number) {
         }
     }
     return romanNumber;
+}
+
+function print(s) {
+    console.log(s);
 }

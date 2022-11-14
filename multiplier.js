@@ -1,13 +1,16 @@
 multipliers = document.querySelectorAll('.multiplier');
 multipliers.forEach(multiplier => {
     
-    multiplier.addEventListener('dragstart', function(e) {
-        e.dataTransfer.setData('application/node type', this);
-        console.log(e);
+    multiplier.addEventListener('dragstart', e => {
         multiplier.classList.add('dragging');
     });
-    multiplier.addEventListener('drag', e => drag(e));
+    multiplier.addEventListener('drag', e => {
+        drag(e);
+    });
+    // multiplier.addEventListener('mouseup', e => dragend(e));
     multiplier.addEventListener('dragend', e => dragend(e));
+
+    
 });
 
 const customMultiplier = document.querySelector('#custom-multiplier');
@@ -17,6 +20,7 @@ customMultiplierInput.addEventListener('input', () => {
 });
 
 function drag(e) {
+    
     const row = getHoveredRow(e);
     
 
@@ -41,65 +45,54 @@ function drag(e) {
 }
 
 function dragend(e) {
-    e.preventDefault();
+    
     const multiplier = document.querySelector('.dragging');
+
+    document.querySelectorAll('.dragging').forEach(dragging => dragging.classList.remove('dragging'));
     // parse string to int
     const multiplierValue = math.evaluate(multiplier.children[0].innerHTML.split(' ')[1] + '*'+ customSignFactor);
-    const row = getHoveredRow(e);
+
+    const selectedItem = document.querySelector('.selected');
+
+    const isSafari = navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1;
+
+    const row = isSafari ? (selectedItem ? selectedItem.parentElement : null) : getHoveredRow(e);
+
     if (row) {
 
-        const befores = {};
-
-        getMatrixElements(row).forEach((td, index) => {
-            td.children[0].style.transform = 'scale(1.35)';
-            befores[index] = Number(td.children[0].innerHTML.replace('~', ''));
-        });
-
         const y = Array.from(row.parentElement.children).indexOf(row) - 1;
-            
-        for (let x = 0; x < matrix[y].length; x++) {
-            console.log(matrix[y][x] + ' * ' + multiplierValue + ' = ' + matrix[y][x] * multiplierValue);
-            matrix[y][x] *=  multiplierValue;
-        }
 
-        addToHistory(matrix);
-        updateMainTable();
-
-        getMatrixElements(row).forEach((td, index) => {
-            const after = Number(td.children[0].innerHTML.replace('~', ''));
-            if (after > befores[index]) {
-                td.children[0].style.color = 'green';
-            }else if (after < befores[index]) {
-                td.children[0].style.color = 'red';
-            }
+        var clone = matrix.map(function(arr) {
+            return arr.slice();
         });
 
+        clone[y] = math.multiply(matrix[y], multiplierValue);
+        print(`${integerToRomanNumber(y+1)}' = ${multiplierValue} * ${integerToRomanNumber(y+1)}`);
+        document.getElementById('last-operation').innerHTML = `Last Operation: ${integerToRomanNumber(y+1)}' = ${multiplierValue} * ${integerToRomanNumber(y+1)}`;
 
-        setTimeout(() => {
-
-            getMatrixElements(row).forEach((td, index) => {
-                td.children[0].style.transform = 'scale(1.0)';
-                td.children[0].style.color = 'black';
-
-
-            });
-    }, 250);
+        animateMatrix(matrix, clone);
+        party.confetti(row);
 
         
     }
-    multiplier.classList.remove('dragging');
+
+
+    
 }
 
 function getHoveredRow(e) {
+
+
     const dragX = e.pageX, dragY = e.pageY;
     const elements = document.elementFromPoint(dragX, dragY);
     
     const td = elements.tagName == 'P' || elements.tagName == 'I' ? elements.parentElement : elements;
 
-    return td && td.tagName == 'TD' && td.parentElement.parentElement.id == 'main-table' ? td.parentElement : null;
+    return td && (td.tagName == 'TD' || td.tagName == 'TH') && td.parentElement.parentElement.id == 'main-table' ? td.parentElement : null;
 }
 
 function getMatrixElements(row) {
     return Array.from(row.children).filter(td => td.classList.contains('matrix-part'))
 }
+
 
